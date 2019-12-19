@@ -1,0 +1,13 @@
+#!/bin/bash
+# set the number of nodes and processes per node
+# PBS -l nodes=2:ppn=8
+# # set name of job
+# PBS -N yourjob
+# # Join output and error together
+# PBS –j oe
+# start job from the directory it was submitted
+cd $PBS_O_WORKDIR
+# define MPI host details
+nprocs=`wc -l $PBS_NODEFILE | awk '{ print $1 }'`
+# run through the mpirun launcher
+mpirun -np $nprocs -machinefile $PBS_NODEFILE /home/hpcuser/hello
